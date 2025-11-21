@@ -1,46 +1,61 @@
 #Requires AutoHotkey >=2.0
 #SingleInstance
 
-; Emulate the RButton's map scrolling funtionality with either [WASD] or [ARROW] the keys.
-; - XButton1 & XButton2 alter the speed factor for the map scrolling.
-; - ScrollLock switches between Modern and Classic map scrolling.
-; - The initial scroll speed is currently intended for Scroll Rate 1.
+; The game has its own map scrolling funtionality with either the Arrow keys or the RButton + Drag, but both options does not have what i wished for:
+; - Arrow keys skips a certain pixel amount in the instructed direction.
+; - RButton + Drag is basically what i want, but just using the Keyboard instead.
 
-; Potential upgrades
-; - Allow scrolling when cursor is above sidebar or topbar
-; - Add a notification upon game launch (ScrollLock disables it)
-; - Add a WheelUp/WheelDown toggle for the Sidebar scroll with MButton
-; - - Structure List Up           Home
-; - - Structure List Down         End
-; - - Unit List Up                PageUp
-; - - Unit List Down              PageDown
+; By emulation the RButton's map scrolling funtionality with either the [WASD] or [ARROW] keys i would be a happy conqueror, but it has some minor complications.
+; - Since the RButton + Drag could move at variable speeds, a toggle for this is implemented using the XButton1 & XButton2. (Mouse back and forth buttons)
+; - I do not want to force either the [WASD] or [ARROW] keys, so the ScrollLock switches between Modern and Classic map scrolling.
+; - Since the RButton + Drag is depending on the actual game's scroll speed, this script is intended for Scroll Rate 1.
 
-test := GetKeyState('MButton')
+; Current BUG state:
+; - Emulating the map scroll near the edges does not enforce the selected scroll speed. (Cache offset, move cursor and reposition it afterwards)
 
+; Pending updates:
+; - Map scrolling when the cursor is above the Side or Top bar is not an option with the RButton + Drag approach.
+; - Add a notification upon game launch, stating the current map scroll mode. (ScrollLock disables this notification)
+; - Scrolling the Sidebar with WheelUp/WheelDown cycles both the Structure and Unit List simultaneously, but the MButton could cycle between the three options available.
+;     Structure List Up           Home
+;     Structure List Down         End
+;     Unit List Up                PageUp
+;     Unit List Down              PageDown
+
+; Window References
 ClientWindow := "Tiberian Sun Client ahk_exe clientdx.exe"
 TitleWindow := "Tiberian Sun ahk_exe game.exe"
+
+; Key Bindings
 ModernKeys := Map("Up", "w", "Down", "s", "Left", "a", "Right", "d")
 ClassicKeys := Map("Up", "Up", "Down", "Down", "Left", "Left", "Right", "Right")
+
+; State Management
 IsEmulating := false
 IsGameActive := false
 IsClassicMode := GetKeyState("ScrollLock", "T")
 PreviousMode := IsClassicMode
+
+; Scroll Speed Settings
 ScrollCeil := 12
 ScrollFloor := 3
 ScrollInitital := 5
 ScrollLevel := ScrollInitital
 ScrollPixels := 10
 
-; Emergency Exit (CTRL + SHIFT + Q) BlockInput Usage Precaution
+; Emergency Exit (CTRL + SHIFT + Q) BlockInput Usage Precaution.
 ^+q:: ExitApp
 
+; Toggle the Emulated Map Scroll Speed.
 #HotIf IsGameActive
 XButton1:: SetScrollSpeed(-1)
 XButton2:: SetScrollSpeed(1)
-; Blocking the Original Scroll Event while Emulating
+
+; Blocking the Original Scroll Event while Emulating.
 #HotIf IsGameActive && IsEmulating
 RButton:: return
-; Direct Access to Alliance, Deploy, Sell and Waypoints for Classic Mode
+
+; Direct Access to Alliance, Deploy, Sell and Waypoints for Classic Mode.
 #HotIf IsGameActive && IsClassicMode
 w::^w
 a::^a
@@ -61,10 +76,11 @@ else {
   NotFound.Hide()
 }
 
-; Await the Client Application
+; Awaits the Client Application.
 WinWait(ClientWindow)
 WinWaitActive(ClientWindow)
-; Self-destruct if the Client Exits
+
+; Self-destruct if the Client is Exited early.
 while !WinExist(TitleWindow) {
   if !WinExist(ClientWindow)
     ExitApp
@@ -72,11 +88,11 @@ while !WinExist(TitleWindow) {
 }
 WinWaitActive(TitleWindow)
 
-; Slowest Speed i set for a Visual Smoothness
+; Slowest Speed i set for a Visual Smoothness.
 SetDefaultMouseSpeed 100
 
 loop {
-  ; Respect the CPU Load and Monitor States
+  ; Respect the CPU Load and Monitor States.
   Sleep 100
   IsClassicMode := GetKeyState("ScrollLock", "T")
   IsGameActive := WinActive(TitleWindow) ? true : false
@@ -140,11 +156,11 @@ loop {
     else InactiveKeys++
   }
 
+  ; Reenable the Original Scroll Event.
   if IsEmulating && InactiveKeys = 4 {
-    ; Reenable the Original Scroll Event
     if IsClassicMode
       SendEvent "{Ctrl up}"
-    ; Terminate the Emulation Event
+    ; Terminate the Emulation Event.
     MouseMove xPos, yPos
     BlockInput "MouseMoveOff"
     SendEvent "{RButton up}"
@@ -156,7 +172,7 @@ loop {
 ; Self-destruct when no longer needed.
 ExitApp
 
-; Unable to style Legacy tooltips for Modern Systems.
+; Unable to style Legacy tooltips for Modern Systems. (TitleWindow will ALT + TAB out of the current game with a custom GUI)
 DisplayToast(msg) {
   ToolTip msg, 50, 50
   SetTimer ToolTip, -1000
