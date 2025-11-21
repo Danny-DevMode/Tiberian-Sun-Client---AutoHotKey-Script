@@ -14,6 +14,7 @@
 ; - Emulating the map scroll near the edges does not enforce the selected scroll speed. (Cache offset, move cursor and reposition it afterwards)
 
 ; Pending updates:
+; - Add the Resources\clienticon.ico for Ahk2Exe conversions.
 ; - Map scrolling when the cursor is above the Side or Top bar is not an option with the RButton + Drag approach.
 ; - Add a notification upon game launch, stating the current map scroll mode. (ScrollLock disables this notification)
 ; - Scrolling the Sidebar with WheelUp/WheelDown cycles both the Structure and Unit List simultaneously, but the MButton could cycle between the three options available.
