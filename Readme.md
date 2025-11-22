@@ -7,7 +7,7 @@ The game’s built‑in map scrolling has two options:
 - `Arrow` keys → jump a fixed pixel distance in the chosen direction.
 - `RButton`+`Drag` → smooth variable scrolling, but hard to maintain a static speed.
 
-This script emulates the `RButton`+`Drag` functionality with the keyboard, giving a consistent and ergonomic control.
+This script emulates the `RButton`+`Drag` functionality with the keyboard, giving a consistent and ergonomic control, while also adding some minor ease-of-use features.
 
 &nbsp;
 
@@ -15,7 +15,14 @@ This script emulates the `RButton`+`Drag` functionality with the keyboard, givin
 **Map Scrolling**
 - Emulate `RButton`+`Drag` with either `WASD` or `Arrow` keys.
 - Toggle scroll speed using `XButton1` / `XButton2` (mouse back/forward buttons).
-- Switch between **Modern** `WASD` and **Classic** `Arrow` keys using `ScrollLock`.
+- Use `ScrollLock` to switch between Modern and Classic mode.
+- **Classic** mode
+  - Navigates the map using the `Arrow` keys.
+  - Emulates `Ctrl` for map scrolling to prevent the default behavior.
+  - Has direct shortcuts for Alliance, Deploy, Sell and Waypoints (no `Ctrl` needed).
+- **Modern** mode
+  - Navigates the map using the `WASD` keys.
+  - Requires `Ctrl` shortcuts for the Alliance, Deploy, Sell and Waypoints.
 
 **Sidebar Scrolling**
 - Default: `WheelUp` / `WheelDown` cycles both **Structure** and **Unit** lists.
@@ -30,22 +37,20 @@ This script emulates the `RButton`+`Drag` functionality with the keyboard, givin
 &nbsp;
 
 ## Pending Updates
-- Add `Resources\clienticon.ico` for **Ahk2Exe** conversions.
 - Improve map scrolling behavior when the cursor is near edges.
 - Implement map scrolling when the cursor is above the Side or Top bar.
 
 &nbsp;
 
-## Configuration
-This script depends on **Keyboard.ini** for hotkey mappings.  
+## Installation
+Place both files within the root folder for the game.
+- Use `Resources\clienticon.ico` for **Ahk2Exe** conversions.
+- This script depends on **Keyboard.ini** for hotkey mappings.  
 See [Keyboard.md](Keyboard.md) for details on the changes made with `Keyboard.ini`.
+  - The `Custom Settings` column in [Keyboard.md](Keyboard.md) shows changes made to avoid collisions.
 
 &nbsp;
 
 ## Notes
 - Script is intended for **Scroll Rate 1** in the game client (awaits further testing).
 - Designed for ergonomic control without disrupting the gameplay immersion.
-
-**Note on Custom Settings**  
-The `Custom Settings` column in [Keyboard.md](Keyboard.md) shows changes made to avoid collisions with `WASD`.  
-In Classic mode, `CTRL + KEY` is emulated for direct access, so you retain the original feel.

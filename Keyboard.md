@@ -1,15 +1,9 @@
-# Keyboard.ini Reference 🎹
+# Keyboard.ini Reference Table
 
-This file defines the hotkey mappings used by the AutoHotKey script.  
-It allows customization of controls without editing the `.ahk` file directly.
-
----
-
-## 📖 How to Read This Document
 - **Initial Settings** → The game’s default control scheme.  
 - **Custom Settings** → Changes introduced by this script to improve ergonomics.  
 - **CTRL + KEY remaps** → These avoid collisions with `WASD` when in Modern mode.  
-  - In Classic mode, the script emulates `CTRL` for direct access, so you don’t lose functionality.  
+  - In Classic mode, the script emulates `CTRL` for a direct access.  
 
 ---
 
