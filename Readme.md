@@ -7,7 +7,7 @@ The game’s built‑in map scrolling has two options:
 - `Arrow` keys: jump a fixed pixel distance in the chosen direction.
 - `RButton`+`Drag`: smooth variable scrolling, but hard to maintain a static speed.
 
-This script emulates the `RButton`+`Drag` functionality with the keyboard, giving a consistent and ergonomic control, while also adding some minor ease-of-use features.
+This script emulates the `RButton`+`Drag` functionality with a keyboard, giving a consistent and ergonomic control, while also adding some minor ease-of-use features.
 
 &nbsp;
 

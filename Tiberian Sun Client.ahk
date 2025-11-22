@@ -44,7 +44,7 @@ d::^d
 
 ; Automated Execution || Error Notification
 if FileExist(A_ScriptDir "TiberianSun.exe") {
-  ; A_ScriptDir ensures the script always checks its own folder, since shortcuts to a .ahk file may not default to that directory.
+  ; A_ScriptDir ensures the script always checks its own folder: shortcuts to a .ahk file may not default to that directory.
   Run A_ScriptDir "TiberianSun"
   WinWait(ClientWindow)
   WinWaitActive(ClientWindow)
