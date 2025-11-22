@@ -1,8 +1,8 @@
 # Keyboard.ini Reference Table
 
-- **Initial Settings** → The game’s default control scheme.  
-- **Custom Settings** → Changes introduced by this script to improve ergonomics.  
-- **CTRL + KEY remaps** → These avoid collisions with `WASD` when in Modern mode.  
+- **Initial Settings**: The game’s default control scheme.  
+- **Custom Settings**: Changes made for this script to improve ergonomics.  
+- **CTRL + KEY remaps**: These avoid collisions with `WASD` when in Modern mode.  
   - In Classic mode, the script emulates `CTRL` for a direct access.  
 
 ---

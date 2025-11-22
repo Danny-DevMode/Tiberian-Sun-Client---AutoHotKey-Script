@@ -1,13 +1,6 @@
 #Requires AutoHotkey >=2.0
 #SingleInstance
 
-; Save := IniWrite(true, "settings.ini", "UI", "theme")
-; Load := IniRead("settings.ini", "UI", "theme", "false")
-; ^ true returns "True"
-; ^ false returns "False"
-; [UI]
-; theme=true
-
 ClientWindow := "Tiberian Sun Client ahk_exe clientdx.exe"
 TitleWindow := "Tiberian Sun ahk_exe game.exe"
 ModernKeys := Map("Up", "w", "Down", "s", "Left", "a", "Right", "d")
@@ -50,8 +43,9 @@ d::^d
 #HotIf
 
 ; Automated Execution || Error Notification
-if FileExist("TiberianSun.exe") {
-  Run "TiberianSun"
+if FileExist(A_ScriptDir "TiberianSun.exe") {
+  ; A_ScriptDir ensures the script always checks its own folder, since shortcuts to a .ahk file may not default to that directory.
+  Run A_ScriptDir "TiberianSun"
   WinWait(ClientWindow)
   WinWaitActive(ClientWindow)
 }
